@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <properties resource="generator/config.properties"/>
+
+    <context id="mysql"
+             targetRuntime="tk.mybatis.mapper.generator.TkMyBatis3SimpleImpl"
+             defaultModelType="flat">
+
+        <!--分隔符设置-->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <!--设置生成的Mapper继承自哪个接口-->
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+        </plugin>
+
+
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.user}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- active:自动生成代码的位置 -->
+<!--        <javaModelGenerator targetPackage="com.bsd.active.entity.dbo" targetProject="src/main/java">-->
+<!--            <property name="enableSubPackages" value="true"/>-->
+<!--            <property name="trimStrings" value="true"/>-->
+<!--        </javaModelGenerator>-->
+<!--        <sqlMapGenerator targetPackage="com.bsd.active.mapper.immutable" targetProject="src/main/java">-->
+<!--            <property name="enableSubPackages" value="true"/>-->
+<!--        </sqlMapGenerator>-->
+<!--        <javaClientGenerator type="XMLMAPPER" targetPackage="com.bsd.active.mapper.immutable"-->
+<!--                             targetProject="src/main/java">-->
+<!--            <property name="enableSubPackages" value="true"/>-->
+<!--        </javaClientGenerator>-->
+
+        <!-- instalment:自动生成代码的位置 -->
+        <javaModelGenerator targetPackage="${targetModelPackage}" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="${targetXMLPackage}" targetProject="${targetResourcesProject}">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${targetMapperPackage}"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+<!--        <table tableName="t_operation_lottery_pool_prize" >-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true" />-->
+<!--        </table>-->
+<!--        <table tableName="t_operation_lottery_prize" >-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true" />-->
+<!--        </table>-->
+<!--        <table tableName="t_operation_user_inviter_log" >-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true" />-->
+<!--        </table>-->
+
+        <table tableName="${tableName}" >
+            <generatedKey column="id" sqlStatement="MySql" identity="true" />
+        </table>
+
+
+
+    </context>
+</generatorConfiguration>
