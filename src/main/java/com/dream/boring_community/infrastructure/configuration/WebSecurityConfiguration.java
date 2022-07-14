@@ -11,13 +11,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @author: WangChaoLei
  * @create: 2022-07-12 10:36
  **/
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/ok").permitAll();
+        http.authorizeRequests().antMatchers("/ok").permitAll()
+                .anyRequest().authenticated()
+                ;
+        http.formLogin();
+        http.httpBasic();
     }
 
     @Override

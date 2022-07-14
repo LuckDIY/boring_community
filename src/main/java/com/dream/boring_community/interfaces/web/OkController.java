@@ -26,4 +26,11 @@ public class OkController {
 
         return accounts;
     }
+
+
+    @GetMapping("/test")
+    public Object test(){
+
+        return "test";
+    }
 }

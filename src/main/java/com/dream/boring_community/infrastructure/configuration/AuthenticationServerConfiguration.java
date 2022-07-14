@@ -1,6 +1,8 @@
 package com.dream.boring_community.infrastructure.configuration;
 
 import com.dream.boring_community.domain.auth.AuthenticAccountDetailsService;
+import com.dream.boring_community.domain.auth.provider.PreAuthenticatedAuthenticationProvider;
+import com.dream.boring_community.domain.auth.provider.UsernamePasswordAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,19 +15,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author: WangChaoLei
  * @create: 2022-07-12 10:27
  **/
-//@Configuration
-//@EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class AuthenticationServerConfiguration extends WebSecurityConfiguration{
 
     @Autowired
     private AuthenticAccountDetailsService authenticAccountDetailsService;
 
+    @Autowired
+    private UsernamePasswordAuthenticationProvider userProvider;
+
+    @Autowired
+    private PreAuthenticatedAuthenticationProvider preProvider;
 
     /**
      * 密码编码器
      */
     @Autowired
-    private PasswordEncoder encoder;
+    private PasswordEncoder passwordEncoder;
 
     /**
      * 构建AuthenticationManager
@@ -34,8 +41,8 @@ public class AuthenticationServerConfiguration extends WebSecurityConfiguration{
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(authenticAccountDetailsService).passwordEncoder(encoder);
-        //auth.authenticationProvider(userProvider);
-        //auth.authenticationProvider(preProvider);
+        auth.userDetailsService(authenticAccountDetailsService).passwordEncoder(passwordEncoder);
+        auth.authenticationProvider(userProvider);
+        auth.authenticationProvider(preProvider);
     }
 }
